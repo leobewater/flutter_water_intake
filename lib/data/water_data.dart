@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_water_intake/models/water_model.dart';
+import 'package:flutter_water_intake/utils/date_helper.dart';
 import 'package:http/http.dart' as http;
 
 // provider
@@ -112,5 +113,37 @@ class WaterData extends ChangeNotifier {
     waterDataList.removeWhere((element) => element.id == waterModel.id!);
 
     notifyListeners();
+  }
+
+  // calculate the weekly water intake
+  String calculateWeeklyWaterIntake(WaterData value) {
+    double weeklyWaterIntake = 0;
+
+    // loop through the water data list
+    for (var water in value.waterDataList) {
+      weeklyWaterIntake += double.parse(water.amount.toString());
+    }
+
+    return weeklyWaterIntake.toStringAsFixed(2);
+  }
+
+  // calculate the daily water intake
+  Map<String, double> calculateDailyWaterSummary() {
+    Map<String, double> dailyWaterSummary = {};
+
+    // loop through the water data list
+    for (var water in waterDataList) {
+      String date = convertDateTimeToString(water.dateTime);
+      double amount = double.parse(water.amount.toString());
+
+      if (dailyWaterSummary.containsKey(date)) {
+        double currentAmount = dailyWaterSummary[date]!;
+        currentAmount += amount;
+        dailyWaterSummary[date] = currentAmount;
+      } else {
+        dailyWaterSummary.addAll({date: amount});
+      }
+    }
+    return dailyWaterSummary;
   }
 }
