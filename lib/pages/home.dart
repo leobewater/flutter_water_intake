@@ -8,9 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final amountController = TextEditingController(
-    text: 'hello',
-  );
+  final amountController = TextEditingController();
 
   void addWater() {
     showDialog(
@@ -25,9 +23,24 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(height: 10),
                   TextField(
                     controller: amountController,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                        border: OutlineInputBorder(), labelText: 'Amount'),
                   )
                 ],
               ),
+              actions: [
+                TextButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel')),
+                TextButton(
+                    onPressed: () {
+                      // save data to db
+                    },
+                    child: const Text('Save'))
+              ],
             ));
   }
 
