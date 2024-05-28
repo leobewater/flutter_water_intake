@@ -53,6 +53,7 @@ class WaterData extends ChangeNotifier {
       // map each item
       for (var element in extractedData.entries) {
         waterDataList.add(WaterModel(
+            id: element.key,
             amount: element.value['amount'],
             dateTime: DateTime.parse(element.value['dateTime']),
             unit: element.value['unit']));
