@@ -30,4 +30,28 @@ class WaterData extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<List<WaterModel>> getWater() async {
+    final url = Uri.https(
+        'flutter-water-intake-default-rtdb.firebaseio.com', 'water.json');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200 && response.body != 'null') {
+      // create water data list
+      final extractedData = jsonDecode(response.body) as Map<String, dynamic>;
+
+      // map each item
+      for (var element in extractedData.entries) {
+        waterDataList.add(WaterModel(
+            amount: double.parse(element.value['amount']),
+            dateTime: DateTime.parse(element.value['dateTime']),
+            unit: element.value['unit']));
+      }
+    }
+
+    notifyListeners();
+
+    return waterDataList;
+  }
 }
