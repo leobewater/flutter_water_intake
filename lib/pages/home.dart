@@ -31,6 +31,13 @@ class _HomePageState extends State<HomePage> {
     if (!context.mounted) {
       return;
     }
+
+    clearWater();
+  }
+
+  void clearWater() {
+    // clear form textfield previous value
+    amountController.clear();
   }
 
   void addWater() {
@@ -96,5 +103,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-
