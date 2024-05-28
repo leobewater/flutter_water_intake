@@ -88,6 +88,7 @@ class _HomePageState extends State<HomePage> {
               final WaterModel waterModel = value.waterDataList[index];
               return ListTile(
                 title: Text(waterModel.amount.toString()),
+                subtitle: Text(waterModel.id!),
               );
             }),
         backgroundColor: Theme.of(context).colorScheme.surface,
