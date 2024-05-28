@@ -86,10 +86,7 @@ class _HomePageState extends State<HomePage> {
             itemCount: value.waterDataList.length,
             itemBuilder: (context, index) {
               final WaterModel waterModel = value.waterDataList[index];
-              return ListTile(
-                title: Text(waterModel.amount.toString()),
-                subtitle: Text(waterModel.id!),
-              );
+              return WaterTile(waterModel: waterModel);
             }),
         backgroundColor: Theme.of(context).colorScheme.surface,
         floatingActionButton: FloatingActionButton(
@@ -98,3 +95,5 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+
