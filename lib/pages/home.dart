@@ -107,13 +107,13 @@ class _HomePageState extends State<HomePage> {
           //elevation: 4,
           centerTitle: true,
           actions: [
-            IconButton(onPressed: () {}, icon: Icon(Icons.map)),
+            IconButton(onPressed: () {}, icon: const Icon(Icons.map)),
           ],
           title: const Text('Water'),
         ),
         body: ListView(children: [
           // graph here
-          WaterSummary(startofWeek: value.getStartOfWeek()),
+          WaterSummary(startOfWeek: value.getStartOfWeek()),
           !_isLoading
               ? ListView.builder(
                   shrinkWrap: true,
