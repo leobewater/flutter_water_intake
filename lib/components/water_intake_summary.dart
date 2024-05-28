@@ -13,13 +13,13 @@ class WaterSummary extends StatelessWidget {
         builder: (context, value, child) => SizedBox(
               height: 200,
               child: BarGraph(
-                  maxY: 100,
+                  maxY: 70,
                   sunWaterAmt: 19,
                   monWaterAmt: 34,
                   tueWaterAmt: 22,
                   wedWaterAmt: 50,
                   thuWaterAmt: 44,
-                  friWaterAmt: 2,
+                  friWaterAmt: 12,
                   satWaterAmt: 23),
             ));
   }

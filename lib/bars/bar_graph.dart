@@ -35,6 +35,8 @@ class BarGraph extends StatelessWidget {
         friWaterAmt: friWaterAmt,
         satWaterAmt: satWaterAmt);
 
+    barData.initBarData();
+    
     return BarChart(BarChartData(
       maxY: maxY,
       minY: 0,
