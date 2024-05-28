@@ -3,6 +3,8 @@ import 'package:flutter_water_intake/components/water_intake_summary.dart';
 import 'package:flutter_water_intake/components/water_tile.dart';
 import 'package:flutter_water_intake/data/water_data.dart';
 import 'package:flutter_water_intake/models/water_model.dart';
+import 'package:flutter_water_intake/pages/about.dart';
+import 'package:flutter_water_intake/pages/settings.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -137,6 +139,40 @@ class _HomePageState extends State<HomePage> {
                   child: CircularProgressIndicator(),
                 ),
         ]),
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                child: Text('Water Intake',
+                    style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 25)),
+              ),
+              ListTile(
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SettingsScreen()));
+                },
+              ),
+              ListTile(
+                title: const Text('About'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AboutScreen()));
+                },
+              )
+            ],
+          ),
+        ),
         backgroundColor: Theme.of(context).colorScheme.surface,
         floatingActionButton: FloatingActionButton(
             onPressed: addWater, child: const Icon(Icons.add)),
