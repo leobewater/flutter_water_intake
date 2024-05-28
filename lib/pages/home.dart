@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_water_intake/components/water_intake_summary.dart';
 import 'package:flutter_water_intake/components/water_tile.dart';
 import 'package:flutter_water_intake/data/water_data.dart';
 import 'package:flutter_water_intake/models/water_model.dart';
@@ -110,16 +111,22 @@ class _HomePageState extends State<HomePage> {
           ],
           title: const Text('Water'),
         ),
-        body: !_isLoading
-            ? ListView.builder(
-                itemCount: value.waterDataList.length,
-                itemBuilder: (context, index) {
-                  final WaterModel waterModel = value.waterDataList[index];
-                  return WaterTile(waterModel: waterModel);
-                })
-            : const Center(
-                child: CircularProgressIndicator(),
-              ),
+        body: ListView(children: [
+          // graph here
+          WaterSummary(startofWeek: value.getStartOfWeek()),
+          !_isLoading
+              ? ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: value.waterDataList.length,
+                  itemBuilder: (context, index) {
+                    final WaterModel waterModel = value.waterDataList[index];
+                    return WaterTile(waterModel: waterModel);
+                  })
+              : const Center(
+                  child: CircularProgressIndicator(),
+                ),
+        ]),
         backgroundColor: Theme.of(context).colorScheme.surface,
         floatingActionButton: FloatingActionButton(
             onPressed: addWater, child: const Icon(Icons.add)),
