@@ -13,6 +13,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final amountController = TextEditingController();
 
+  @override
+  void initState() {
+    // get all the water when this is initialized
+    Provider.of<WaterData>(context, listen: false).getWater();
+    super.initState();
+  }
+
   void saveWater() async {
     Provider.of<WaterData>(context, listen: false).addWater(WaterModel(
         amount: double.parse(amountController.text.toString()),
@@ -75,6 +82,14 @@ class _HomePageState extends State<HomePage> {
           ],
           title: const Text('Water'),
         ),
+        body: ListView.builder(
+            itemCount: value.waterDataList.length,
+            itemBuilder: (context, index) {
+              final WaterModel waterModel = value.waterDataList[index];
+              return ListTile(
+                title: Text(waterModel.amount.toString()),
+              );
+            }),
         backgroundColor: Theme.of(context).colorScheme.surface,
         floatingActionButton: FloatingActionButton(
             onPressed: addWater, child: const Icon(Icons.add)),
