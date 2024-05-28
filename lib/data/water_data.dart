@@ -22,11 +22,18 @@ class WaterData extends ChangeNotifier {
           'dateTime': DateTime.now().toString(),
         }));
 
-    // if (response.statusCode == 200) {
-    //   debugPrint('Data saved');
-    // } else {
-    //   debugPrint('Data not saved');
-    // }
+    if (response.statusCode == 200) {
+      final extractedData = jsonDecode(response.body) as Map<String, dynamic>;
+
+      waterDataList.add(WaterModel(
+          // get the id
+          id: extractedData['name'],
+          amount: water.amount,
+          dateTime: water.dateTime,
+          unit: water.unit));
+    } else {
+      debugPrint('Error: ${response.statusCode}');
+    }
 
     notifyListeners();
   }
@@ -38,6 +45,8 @@ class WaterData extends ChangeNotifier {
     final response = await http.get(url);
 
     if (response.statusCode == 200 && response.body != 'null') {
+      waterDataList.clear();
+
       // create water data list
       final extractedData = jsonDecode(response.body) as Map<String, dynamic>;
 
