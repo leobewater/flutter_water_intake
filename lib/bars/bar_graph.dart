@@ -44,12 +44,17 @@ class BarGraph extends StatelessWidget {
         minY: 0,
         gridData: const FlGridData(show: false), // hide grid lines
         borderData: FlBorderData(show: false), // hide border
-        titlesData: const FlTitlesData(
+        titlesData: FlTitlesData(
           show: true,
           // hide top, left and right titles
-          topTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          leftTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
-          rightTitles: AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          topTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          leftTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          rightTitles: const AxisTitles(sideTitles: SideTitles(showTitles: false)),
+          bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+            showTitles: true,
+            getTitlesWidget: getBottomTitlesWidget,
+          )),
         ),
         barGroups: barData.barData
             .map((data) => BarChartGroupData(
@@ -74,5 +79,39 @@ class BarGraph extends StatelessWidget {
             .toList(),
       )),
     );
+  }
+
+  Widget getBottomTitlesWidget(double value, TitleMeta meta) {
+    const TextStyle style = TextStyle(
+        color: Color.fromARGB(255, 24, 23, 23),
+        fontWeight: FontWeight.bold,
+        fontSize: 12);
+
+    Widget text;
+
+    switch (value.toInt()) {
+      case 0:
+      case 6:
+        text = const Text('S', style: style);
+        break;
+      case 1:
+        text = const Text('M', style: style);
+        break;
+      case 2:
+      case 4:
+        text = const Text('T', style: style);
+        break;
+      case 3:
+        text = const Text('W', style: style);
+        break;
+      case 5:
+        text = const Text('F', style: style);
+        break;
+      default:
+        text = const Text('');
+        break;
+    }
+
+    return SideTitleWidget(axisSide: meta.axisSide, space: 3, child: text);
   }
 }
